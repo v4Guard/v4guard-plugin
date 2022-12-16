@@ -11,6 +11,7 @@ public class AntiVPNListener implements Listener {
 
     @EventHandler(priority = Byte.MIN_VALUE)
     public void onPreLogin(PreLoginEvent e) {
+        if(e.isCancelled()) return;
         if(e.getConnection() == null) return;
         if(ProxyServer.getInstance().getPlayer(e.getConnection().getName()) != null) return;
         v4GuardCore.getInstance().getCheckManager().runPreLoginCheck(e.getConnection().getName(), e);

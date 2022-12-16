@@ -13,6 +13,7 @@ public class AntiVPNListener {
 
     @Subscribe(order = PostOrder.FIRST)
     public void onAsyncPreLogin(PreLoginEvent e, Continuation continuation) {
+        if(!e.getResult().isAllowed()) return;
         if(v4GuardVelocity.getV4Guard().getServer().getPlayer(e.getUsername()).isPresent()) return;
         VelocityCheckProcessor pr = (VelocityCheckProcessor) v4GuardCore.getInstance().getCheckManager().getProcessorByClass(VelocityCheckProcessor.class);
         pr.onPreLoginWithContinuation(e, continuation);
